@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="text-xs md:text-base">
-      {isLoading && <div>Loading data...</div>}
+      {isLoading && <div className="loader">Loading...</div>}
       {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
       <Router>
         <Switch>
@@ -36,7 +36,7 @@ function App() {
           <Route 
             exact path="/:id" 
             render={routeProps => (
-              <div className="active w-4/5 xl:w-2/5 max-w-screen-sm">
+              <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
                 <Feedback {...routeProps} id={activeUser.id} link={"landing"} 
                   picture={activeUser.picture} 
                   fullname={activeUser.fullname} 

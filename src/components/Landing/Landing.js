@@ -4,9 +4,8 @@ export default function Landing(props) {
     const comps = [];
     props.feedbacks.forEach(fback => {
         comps.push(
-            <div className="feedback w-4/5 xl:w-2/5 max-w-screen-sm mt-5 mb-5">
-                <Feedback 
-                    key={fback.id} 
+            <div key={fback.id} className="feedback w-4/5 xl:w-2/5 max-w-screen-sm mt-5 mb-5">
+                <Feedback                     
                     id={fback.id} 
                     onClick={(user) => {props.onClick(user)}} 
                     picture={fback.user.picture_url} 
