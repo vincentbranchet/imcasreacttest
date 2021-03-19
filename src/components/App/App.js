@@ -6,15 +6,31 @@ import Feedback from './../Feedback/Feedback';
 
 function App() {
   const [activeId, setActiveId] = useState(1);
-  const feedbacks = [1];
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    fetch(`http://api.imcas.com/v1/feedbacks`)
+    .then(res => res.json())
+    .then(res => {
+      console.log("fetch");
+      setFeedbacks(res.data);
+      setPage(res.current_page);
+      setIsLoading(false);
+    })
+    .catch(error => {setError(error)})
+  }, [page]);
 
   return (
     <div className="App">
+      {isLoading && <div>Loading data...</div>}
       <Router>
         <Switch>
           <Route
             exact path="/" 
-            render={routeProps => (<Landing feedbacks={feedbacks} />)} 
+            render={routeProps => (<Landing feedbacks={feedbacks} onClick={(id) => {setActiveId(id)}} />)} 
           />
           <Route 
             exact path="/:id" 

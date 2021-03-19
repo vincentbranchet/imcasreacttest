@@ -14,7 +14,7 @@ export default function Feedback(props) {
     }
     else {
         return (
-            <Link to={"/" + props.id}>{"to" + props.id}</Link>
+            <Link to={"/" + props.id} onClick={() => props.onClick(props.id)}>{"to" + props.id}</Link>
         );
     }
 }
