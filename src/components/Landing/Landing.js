@@ -3,11 +3,24 @@ import Feedback from './../Feedback/Feedback';
 export default function Landing(props) {
     const comps = [];
     props.feedbacks.forEach(fback => {
-        comps.push(<Feedback key={fback.id} id={fback.id} onClick={props.onClick} />);
+        comps.push(
+            <div className="feedback w-4/5 xl:w-2/5 max-w-screen-sm mt-5 mb-5">
+                <Feedback 
+                    key={fback.id} 
+                    id={fback.id} 
+                    onClick={(user) => {props.onClick(user)}} 
+                    picture={fback.user.picture_url} 
+                    fullname={fback.user.fullname} 
+                    specialty={fback.user.specialty} 
+                    country={fback.user.country} 
+                    quote={fback.translations}
+                />
+            </div>
+            );
     })
 
     return(
-        <div>
+        <div className="container mx-auto flex flex-col xl:flex-row flex-wrap justify-around items-center pt-10 pb-10">
             {comps}
         </div>
     );

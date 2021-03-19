@@ -5,7 +5,7 @@ import Landing from './../Landing/Landing';
 import Feedback from './../Feedback/Feedback';
 
 function App() {
-  const [activeId, setActiveId] = useState(1);
+  const [activeUser, setActiveUser] = useState(null);
   const [feedbacks, setFeedbacks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,19 +24,27 @@ function App() {
   }, [page]);
 
   return (
-    <div className="App">
+    <div className="text-xs md:text-base">
       {isLoading && <div>Loading data...</div>}
       {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
       <Router>
         <Switch>
           <Route
             exact path="/" 
-            render={routeProps => (<Landing feedbacks={feedbacks} onClick={(id) => {setActiveId(id)}} />)} 
+            render={routeProps => (<Landing feedbacks={feedbacks} onClick={(user) => {setActiveUser(user)}} />)} 
           />
           <Route 
             exact path="/:id" 
             render={routeProps => (
-              <Feedback {...routeProps} id={activeId} link={"landing"} />
+              <div className="active w-4/5 xl:w-2/5 max-w-screen-sm">
+                <Feedback {...routeProps} id={activeUser.id} link={"landing"} 
+                  picture={activeUser.picture} 
+                  fullname={activeUser.fullname} 
+                  specialty={activeUser.specialty} 
+                  country={activeUser.country} 
+                  quote={activeUser.quote}
+                />
+              </div>
             )} 
           />
         </Switch>
