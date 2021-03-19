@@ -1,5 +1,5 @@
 import './css/App.css';
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import Landing from './../Landing/Landing';
 import Feedback from './../Feedback/Feedback';
@@ -26,6 +26,7 @@ function App() {
   return (
     <div className="App">
       {isLoading && <div>Loading data...</div>}
+      {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
       <Router>
         <Switch>
           <Route
