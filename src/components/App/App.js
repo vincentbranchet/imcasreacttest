@@ -53,7 +53,11 @@ function App() {
               if(isUser === true) {
                 return (
                   <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
-                    <Feedback {...routeProps} id={activeUser.id} link={"landing"} 
+                    <Feedback 
+                      {...routeProps} 
+                      id={activeUser.id} 
+                      link={"/"} 
+                      onClick={() => setActiveUser(null)}
                       picture={activeUser.picture} 
                       fullname={activeUser.fullname} 
                       specialty={activeUser.specialty} 

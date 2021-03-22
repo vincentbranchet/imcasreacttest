@@ -6,7 +6,8 @@ export default function Landing(props) {
         comps.push(
             <div key={fback.id} className="feedback w-4/5 xl:w-2/5 max-w-screen-sm mt-5 mb-5">
                 <Feedback                     
-                    id={fback.id} 
+                    id={fback.id}
+                    link={"/" + fback.id}
                     onClick={(user) => {props.onClick(user)}} 
                     picture={fback.user.picture_url} 
                     fullname={fback.user.fullname} 
