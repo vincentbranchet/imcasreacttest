@@ -18,14 +18,14 @@ function App() {
     .then(res => {
       setFeedbacks(res.data);
       setPage(res.current_page);
-      setIsLoading(true);
+      setIsLoading(false);
     })
     .catch(error => {setError(error)})
   }, [page]);
 
   return (
     <div className="text-xs md:text-base">
-      {isLoading && <div className="w-screen h-screen bg-gradient-to-tr from-purple-100 via-red-100 to-yellow-100"><div className="loader">Loading...</div></div>}
+      {isLoading && <div className="loader">Loading...</div>}
       {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
       <Router>
         <Switch>
