@@ -6,7 +6,7 @@ import Feedback from './../Feedback/Feedback';
 import Error404 from './../Error404/Error404';
 
 function App() {
-  const [activeUser, setActiveUser] = useState(null);
+  const [activeFeedback, setActiveFeedback] = useState(null);
   const [feedbacks, setFeedbacks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,7 +32,7 @@ function App() {
         <Switch>
           <Route
             exact path="/" 
-            render={routeProps => (<Landing feedbacks={feedbacks} onClick={(user) => {setActiveUser(user)}} />)} 
+            render={routeProps => (<Landing feedbacks={feedbacks} onClick={(user) => {setActiveFeedback(user)}} />)} 
           />
           <Route 
             path="/page-not-found"
@@ -41,28 +41,28 @@ function App() {
           <Route 
             exact path="/:id" 
             render={(routeProps) => {
-              let isUser = false;
+              let isFeedback = false;
 
               for(let i of feedbacks) {                
                 if(i.id == routeProps.match.params.id) {                  
-                  isUser = true;
+                  isFeedback = true;
                   break;                  
                 }                
               }
 
-              if(isUser === true) {
+              if(isFeedback === true) {
                 return (
                   <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
                     <Feedback 
                       {...routeProps} 
-                      id={activeUser.id} 
+                      id={activeFeedback.id} 
                       link={"/"} 
-                      onClick={() => setActiveUser(null)}
-                      picture={activeUser.picture} 
-                      fullname={activeUser.fullname} 
-                      specialty={activeUser.specialty} 
-                      country={activeUser.country} 
-                      quote={activeUser.quote}
+                      onClick={() => setActiveFeedback(null)}
+                      picture={activeFeedback.picture} 
+                      fullname={activeFeedback.fullname} 
+                      specialty={activeFeedback.specialty} 
+                      country={activeFeedback.country} 
+                      quote={activeFeedback.quote}
                     />
                   </div>
                 );
