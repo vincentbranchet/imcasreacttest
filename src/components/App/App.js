@@ -18,20 +18,26 @@ function App() {
     .then(res => {
       setFeedbacks(res.data);
       setPage(res.current_page);
-      setIsLoading(false);
+      setIsLoading(true);
     })
     .catch(error => {setError(error)})
   }, [page]);
 
   return (
     <div className="text-xs md:text-base">
-      {isLoading && <div className="loader">Loading...</div>}
+      {isLoading && <div className="w-screen h-screen bg-gradient-to-tr from-purple-100 via-red-100 to-yellow-100"><div className="loader">Loading...</div></div>}
       {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
       <Router>
         <Switch>
           <Route
             exact path="/" 
-            render={routeProps => (<Landing feedbacks={feedbacks} onClick={(user) => {setActiveFeedback(user)}} />)} 
+            render={(routeProps) => {
+              return (
+              <div className="bg-gradient-to-tr from-purple-100 via-red-100 to-yellow-100">
+                <Landing feedbacks={feedbacks} onClick={(user) => {setActiveFeedback(user)}} />
+              </div>
+              );
+            }} 
           />
           <Route 
             path="/page-not-found"
@@ -51,18 +57,20 @@ function App() {
 
               if(isFeedback === true) {
                 return (
-                  <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
-                    <Feedback 
-                      {...routeProps} 
-                      id={activeFeedback.id} 
-                      link={"/"} 
-                      onClick={() => setActiveFeedback(null)}
-                      picture={activeFeedback.picture} 
-                      fullname={activeFeedback.fullname} 
-                      specialty={activeFeedback.specialty} 
-                      country={activeFeedback.country} 
-                      quote={activeFeedback.quote}
-                    />
+                  <div className="w-screen h-screen bg-gradient-to-tr from-purple-100 via-red-100 to-yellow-100">
+                    <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
+                      <Feedback 
+                        {...routeProps} 
+                        id={activeFeedback.id} 
+                        link={"/"} 
+                        onClick={() => setActiveFeedback(null)}
+                        picture={activeFeedback.picture} 
+                        fullname={activeFeedback.fullname} 
+                        specialty={activeFeedback.specialty} 
+                        country={activeFeedback.country} 
+                        quote={activeFeedback.quote}
+                      />
+                    </div>
                   </div>
                 );
               }

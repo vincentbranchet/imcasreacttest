@@ -4,7 +4,7 @@ export default function Feedback(props) {
 
     return (
         <Link to={props.link} onClick={() => props.onClick(props)}>
-            <div className="w-full h-full flex justify-start items-start p-3 md:p-7 rounded-2xl shadow-custom">
+            <div className="w-full h-full bg-white flex justify-start items-start p-3 md:p-7 rounded-2xl shadow-custom">
                 <img className="w-14 h-14 mr-5 object-cover rounded-full" src={props.picture} alt="Portrait" />
                 <div className="">
                     <div className="mb-5 mt-3">
