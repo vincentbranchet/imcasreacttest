@@ -16,7 +16,6 @@ function App() {
     fetch(`http://api.imcas.com/v1/feedbacks`)
     .then(res => res.json())
     .then(res => {
-      console.log("fetch");
       setFeedbacks(res.data);
       setPage(res.current_page);
       setIsLoading(false);
