@@ -2,12 +2,7 @@ import {Link} from 'react-router-dom';
 
 export default function Feedback(props) {
 
-    if(props.match && (props.match.params.id != props.id)) {
-        return (
-            <div>L'adresse demandée n'a pas été trouvée. <Link to="/">Retour à l'accueil</Link></div>
-        );
-    }    
-    else if(props.link === "landing") {
+    if(props.link === "landing") {
         return (
             <Link to="/">
             <div className="w-full h-full flex justify-start items-start p-3 md:p-7 rounded-2xl shadow-custom">

@@ -1,8 +1,9 @@
 import './css/App.css';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import Landing from './../Landing/Landing';
 import Feedback from './../Feedback/Feedback';
+import Error404 from './../Error404/Error404';
 
 function App() {
   const [activeUser, setActiveUser] = useState(null);
@@ -34,18 +35,38 @@ function App() {
             render={routeProps => (<Landing feedbacks={feedbacks} onClick={(user) => {setActiveUser(user)}} />)} 
           />
           <Route 
+            path="/page-not-found"
+            component={Error404} 
+          />
+          <Route 
             exact path="/:id" 
-            render={routeProps => (
-              <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
-                <Feedback {...routeProps} id={activeUser.id} link={"landing"} 
-                  picture={activeUser.picture} 
-                  fullname={activeUser.fullname} 
-                  specialty={activeUser.specialty} 
-                  country={activeUser.country} 
-                  quote={activeUser.quote}
-                />
-              </div>
-            )} 
+            render={(routeProps) => {
+              let isUser = false;
+
+              for(let i of feedbacks) {                
+                if(i.id == routeProps.match.params.id) {                  
+                  isUser = true;
+                  break;                  
+                }                
+              }
+
+              if(isUser === true) {
+                return (
+                  <div className="centered w-4/5 xl:w-2/5 max-w-screen-sm">
+                    <Feedback {...routeProps} id={activeUser.id} link={"landing"} 
+                      picture={activeUser.picture} 
+                      fullname={activeUser.fullname} 
+                      specialty={activeUser.specialty} 
+                      country={activeUser.country} 
+                      quote={activeUser.quote}
+                    />
+                  </div>
+                );
+              }
+              else {
+                return <Redirect to="/page-not-found" />
+              }
+            }} 
           />
         </Switch>
       </Router>
