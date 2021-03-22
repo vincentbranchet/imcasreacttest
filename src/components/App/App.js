@@ -5,13 +5,16 @@ import Landing from './../Landing/Landing';
 import Feedback from './../Feedback/Feedback';
 import Error404 from './../Error404/Error404';
 
-function App() {
+export default function App() {
   const [activeFeedback, setActiveFeedback] = useState(null);
   const [feedbacks, setFeedbacks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(null);
 
+/**
+ * We use this hook to fetch API data once, before first render, and make sure to only fetch it once (because we don't need more)
+ */
   useEffect(() => {
     fetch(`http://api.imcas.com/v1/feedbacks`)
     .then(res => res.json())
@@ -23,28 +26,38 @@ function App() {
     .catch(error => {setError(error)})
   }, [page]);
 
+/**
+ * At render we check URL vs 3 routes including 404, to which we redirect if URL/:id doesn't match API state data.
+ * When user clicks on a specific feedback box in the first page, data flows up to <App> state in activeFeedback to be rendered back on the second page.
+ */
   return (
     <div className="text-xs md:text-base">
+
       {isLoading && <div className="loader">Loading...</div>}
+
       {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
+
       <Router>
         <Switch>
+
           <Route
             exact path="/" 
-            render={(routeProps) => {
+            render={() => {
               return (
-              <div className="bg-gradient-to-tr from-purple-100 via-red-100 to-yellow-100">
-                <Landing feedbacks={feedbacks} onClick={(user) => {setActiveFeedback(user)}} />
-              </div>
+                <div className="bg-gradient-to-tr from-purple-100 via-red-100 to-yellow-100">
+                  <Landing feedbacks={feedbacks} onClick={(user) => {setActiveFeedback(user)}} />
+                </div>
               );
             }} 
           />
+
           <Route 
             path="/page-not-found"
             component={Error404} 
           />
+
           <Route 
-            exact path="/:id" 
+            path="/:id" 
             render={(routeProps) => {
               let isFeedback = false;
 
@@ -84,5 +97,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

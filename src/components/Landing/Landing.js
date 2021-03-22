@@ -1,10 +1,14 @@
 import Feedback from './../Feedback/Feedback';
 
+/**
+ * This component acts as a <Feedback> wrapper ; it loops trough fetched data and renders an array of <Feedback> components.
+ */
 export default function Landing(props) {
     const comps = [];
+
     props.feedbacks.forEach(fback => {
         comps.push(
-            <div key={fback.id} className="feedback w-4/5 xl:w-2/5 max-w-screen-sm mt-5 mb-5">
+            <div key={fback.id} className="w-4/5 xl:w-2/5 max-w-screen-sm mt-5 mb-5">
                 <Feedback                     
                     id={fback.id}
                     link={"/" + fback.id}

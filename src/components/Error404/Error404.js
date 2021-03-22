@@ -1,7 +1,6 @@
-export default function Error404(props) {
-    console.log(props);
+export default function Error404() {
     return (
-        <div className="">
+        <div className="centered">
             La page demandée n'a pas été trouvée.
         </div>
     );

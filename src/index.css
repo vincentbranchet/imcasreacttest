@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Vertical & horizontal centering is easier with a class like this than with Tailwind utilities.
+ */
 .centered {
   position: absolute;
   top: 50%;
@@ -9,6 +12,9 @@
   transform: translate(-50%, -50%);
 }
 
+/**
+ * We borrowed a loader from https://projects.lukehaas.me/css-loaders/.
+ */
 .loader,
 .loader:before,
 .loader:after {
