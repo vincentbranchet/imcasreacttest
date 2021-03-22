@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Landing from './../Landing/Landing';
 import Feedback from './../Feedback/Feedback';
 import Error404 from './../Error404/Error404';
+import ErrorAPI from './../ErrorAPI/ErrorAPI';
+import Loading from './../Loading/Loading';
 
 export default function App() {
   const [activeFeedback, setActiveFeedback] = useState(null);
@@ -33,9 +35,9 @@ export default function App() {
   return (
     <div className="text-xs md:text-base">
 
-      {isLoading && <div className="loader">Loading...</div>}
+      {isLoading && <Loading />}
 
-      {error && <div>Erreur d'accès à la base de données : {error.message}</div>}
+      {error && <ErrorAPI message={error.message} />}
 
       <Router>
         <Switch>
